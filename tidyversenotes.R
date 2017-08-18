@@ -93,3 +93,23 @@ surveys %>%
 surveys %>% 
   group_by(sex) %>% 
   summarize(numb = n())
+
+
+### EXPORTING DATA
+
+surveys_complete<- surveys %>%
+  filter(species_id != "",
+         !is.na(weight),
+         !is.na(hindfoot_length),
+         sex != "")
+
+species_counts<- surveys_complete %>% 
+  group_by(species_id) %>% 
+  tally %>% 
+  filter( n >= 50)
+
+## only keep most common species
+surveys_comm_spp <- surveys_complete %>% 
+  filter(species_id %in% species_counts$species_id) 
+## '==' doesn't work because it's not iterating 
+write.csv(surveys_comm_spp, file= "surveys_comm_spp")
