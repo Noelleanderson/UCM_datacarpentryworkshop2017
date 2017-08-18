@@ -31,5 +31,54 @@ surveys %>%
 
 surveys %>% 
   mutate(hindfoot_half = hindfoot_length / 2) %>% 
-  filter(hindfoot_half < 30 | is.na(hindfoot_half) == FALSE) %>% 
-  select(species_id, hindfoot_half)
+  filter(hindfoot_half < 30, !is.na(hindfoot_half)) %>% 
+  select(species_id, hindfoot_half) 
+
+surveys %>%
+  group_by(sex) %>%
+  summarize(mean_weight = mean(weight, na.rm = TRUE))
+
+surveys %>%
+  group_by(sex, species_id) %>% ## filter on 2 cols
+  summarize(mean_weight = mean(weight, na.rm = TRUE)) %>% 
+  head 
+
+surveys %>%
+  filter(!is.na(weight)) %>%
+  group_by(sex, species_id) %>%
+  summarize(mean_weight = mean(weight)) %>%
+  print(n = 50)
+
+surveys %>%
+  group_by(sex) %>%
+  tally
+
+## How many individuals were caught in each plot_type surveyed?
+surveys %>% 
+  group_by(plot_type) 
+
+## Use group_by() and summarize() to find the mean, min, and max hindfoot length 
+## for each species (using species_id).
+surveys %>% 
+  group_by(species) %>%
+  filter(!is.na(hindfoot_length)) %>% 
+  summarise(meanHL = mean(hindfoot_length), minHL = min(hindfoot_length), maxHL = max(hindfoot_length)) %>% 
+  tail
+
+## What was the heaviest animal measured in each year? Return the columns year, genus, 
+## species_id, and weight.
+surveys %>% 
+  filter(!is.na(weight)) %>% 
+  group_by(year) %>% 
+  filter(weight == max(weight)) %>% 
+  select(year, genus, species_id, weight)
+  
+## You saw above how to count the number of individuals of each sex using a combination 
+## of group_by() and tally(). 
+surveys %>% 
+  
+
+## How could you get the same result using group_by() and summarize()? Hint: see ?n.
+
+
+
