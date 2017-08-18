@@ -80,7 +80,7 @@ surveys %>%
   
 surveys %>% 
   group_by(year) %>% 
-  filter(!is.naweight == max(weight)) %>% 
+  filter(!is.na(weight), weight == max(weight)) %>% # THIS SHOULD WORK FOR ABOVE BUT DOESN'T
   select(year, genus, species_id, weight)
 
 ## 4. You saw above how to count the number of individuals of each sex using a combination 
