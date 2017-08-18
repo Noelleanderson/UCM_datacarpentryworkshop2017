@@ -11,7 +11,6 @@ surveys <- read.csv("data/portal_data_joined.csv")
 
 ## explore our data (content)
 head(surveys) # show first 6 rows of data
-tail(surveys) # show last 6 rows of data
 tail(surveys, 12) # show last 12 rows of data
 
 ## summaries
@@ -22,7 +21,6 @@ summary(surveys)
 dim(surveys)
 nrow(surveys)
 ncol(surveys)
-
 names(surveys)
 
 ## the $ operator for isolating columns
@@ -73,9 +71,7 @@ table(surveys$month == 1 | surveys$month == 2)
 ## what's the length (i.e. how many rows) are month less than 3
 length(which(surveys$month < 3))
 
-# Sabah (here you can look in the console and add the 'TRUE' cases together
 x <- summary(surveys$month == 1)
 (summary(surveys$month == 2))
 
 summary(as.factor(surveys$month))
-
